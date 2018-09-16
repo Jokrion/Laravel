@@ -1,4 +1,4 @@
-@extends('layouts.master', ['title' => 'Home'])
+@extends('layouts.master', ['title' => 'Accueil'])
 
 @section('header')
 	@include('shared._header')
@@ -22,7 +22,7 @@
 									<div class="card-block px-2">
 										<h5 class="card-title">{{ $post->title }}</h5>
 										<p class="card-text">{{ $post->description }}</p>
-										<a href="#" class="btn btn-primary">> Voir détail</a>
+										<a href="{{ url('post', $post->id) }}" class="btn btn-primary">> Voir détail</a>
 									</div>
 								</div>
 							</div>
@@ -42,9 +42,9 @@
 
 			<section class="col-xs-12 col-md-4">
 				<div class="container">
-					{!! Form::open(['route' => 'search', 'class' => 'form-inline my-2 my-lg-0', 'method' => 'POST']) !!}
+					{!! Form::open(['route' => 'search', 'class' => 'form-inline', 'method' => 'POST']) !!}
 						{!! Form::text('search', null, ['required', 'class' => 'form-control mr-sm-2']) !!}
-    					{!! Form::submit('Rechercher', ['class' => 'btn btn-default my-2 my-sm-0']) !!}
+    					{!! Form::submit('Rechercher', ['class' => 'btn btn-default']) !!}
 					{!! Form::close() !!}
 				</div>
 			</section>

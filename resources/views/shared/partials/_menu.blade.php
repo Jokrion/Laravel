@@ -11,13 +11,13 @@
                 <a class="nav-link" href="{{ url('/') }}">Accueil</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}">Stage</a>
+                <a class="nav-link" href="{{ url('stages') }}">Stage</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}">Formation</a>
+                <a class="nav-link" href="{{ url('formations') }}">Formation</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('/') }}">Contact</a>
+                <a class="nav-link" href="{{ url('contact') }}">Contact</a>
             </li>
         </ul>
     </div>
