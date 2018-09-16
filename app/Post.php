@@ -16,7 +16,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'post_type', 'title', 'description', 'start_date', 'end_date', 'price', 'max_students', 'category_id',
+        'post_type', 'title', 'description', 'start_date', 'end_date', 'price', 'max_students', 'published', 'category_id',
     ];
 
     /**
@@ -40,7 +40,8 @@ class Post extends Model
      *
      * @return boolean
      */
-    public function isFomation()    {        
+    public function isFormation()
+    {        
         return $this->type === self::FORMATION_TYPE;    
     }
 
@@ -49,7 +50,9 @@ class Post extends Model
      *
      * @return boolean
      */
-    public function isStage()    {        
+    public function isStage()
+    {        
         return $this->type === self::STAGE_TYPE;    
     }
+
 }

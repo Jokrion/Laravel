@@ -12,11 +12,14 @@
 */
 
 // Home page
-Route::get('/', 'FrontController@index');
-Route::post('/', 'FrontController@search')->name('search');
+Route::get('/', 'FrontController@index')
+	->name('home');
+Route::post('/', 'FrontController@search')
+	->name('search');
 
 // Single post
-Route::get('post/{id}', 'FrontController@show')->where(['id'=>'[0-9]+']);
+Route::get('post/{id}', 'FrontController@show')
+	->where(['id'=>'[0-9]+']);
 
 // Archives
 Route::get('stages', 'FrontController@stages');
@@ -24,11 +27,15 @@ Route::get('formations', 'FrontController@formations');
 
 // Contact
 Route::get('contact', 'FrontController@contact');
-Route::post('contact', 'FrontController@sendContactMail')->name('contact');
+Route::post('contact', 'FrontController@sendContactMail')
+	->name('contact');
 
-// Auth routes
-Route::resource('admin/book', 'BookController')->middleware('auth');
+// Login route & auth routes
+Auth::routes();
 
-// Auth::routes();
+// Admin routes
+Route::group(['middleware' => ['auth', 'is_admin']], function() {
+	Route::resource('admin', 'AdminController');
+});
 
 // Route::get('/home', 'HomeController@index')->name('home');

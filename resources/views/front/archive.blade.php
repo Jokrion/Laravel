@@ -22,7 +22,7 @@
 						<div class="card-block px-2">
 							<h5 class="card-title">{{ $post->title }}</h5>
 							<p class="card-text">{{ $post->description }}</p>
-							<a href="#" class="btn btn-primary">> Voir détail</a>
+							<a href="{{ url('post', $post->id) }}" class="btn btn-primary">> Voir détail</a>
 						</div>
 					</div>
 				</div>

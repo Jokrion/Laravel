@@ -55,7 +55,7 @@ class FrontController extends Controller
     // Single post
     public function show(int $id){
         $post = Post::find($id);
-        $title = ($post->post_type == "formation") ? 'Formation' : 'Stage';
+        $title = ($post->isFormation()) ? 'Formation' : 'Stage';
         $post->start_date = Carbon::parse($post->start_date)->format('d/m/Y');
         $post->end_date = Carbon::parse($post->end_date)->format('d/m/Y');
 
@@ -81,6 +81,12 @@ class FrontController extends Controller
         Mail::to($adminMail)->send(new ContactEmail(['email' => $email, 'message' => $message, 'admin' => true]));
 
         return view ('front.contact', ['sent' => true]);
+    }
+
+    // Login
+    public function login()
+    {
+        return view ('auth.login');
     }
 
 }

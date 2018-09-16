@@ -10,6 +10,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'start_date' => $faker->dateTime(),
         'end_date' => $faker->dateTime('1575936000'),
         'price' => $faker->numberBetween(10, 30),
-        'max_students' => $faker->numberBetween(30, 40)
+        'max_students' => $faker->numberBetween(30, 40),
+        'published' => true
     ];
 });

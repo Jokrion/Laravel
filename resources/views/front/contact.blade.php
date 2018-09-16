@@ -22,11 +22,11 @@
 				</div>
 				<div class="form-group">
 					{!! Form::label('email', 'Adresse Email :') !!}
-					{!! Form::email('email', null, ['required', 'class' => 'form-control']) !!}
+					{!! Form::email('email', old('email'), ['required', 'class' => 'form-control']) !!}
 				</div>
 				<div class="form-group">
 					{!! Form::label('message', 'Votre message :') !!}
-					{!! Form::textarea('message', null, ['required', 'class' => 'form-control']) !!}
+					{!! Form::textarea('message', old('message'), ['required', 'class' => 'form-control']) !!}
 				</div>
 				{!! Form::submit('Envoyer', ['class' => 'btn btn-primary']) !!}
 			{!! Form::close() !!}

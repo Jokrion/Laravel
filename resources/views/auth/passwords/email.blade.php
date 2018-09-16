@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.master', ['title' => 'Mot de passe'])
+
+@section('header')
+    @include('shared._header')
+@stop
 
 @section('content')
 <div class="container">
@@ -45,3 +49,7 @@
     </div>
 </div>
 @endsection
+
+@section('footer')
+    @include('shared._footer')
+@stop

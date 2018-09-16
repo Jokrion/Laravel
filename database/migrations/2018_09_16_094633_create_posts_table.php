@@ -23,6 +23,7 @@ class CreatePostsTable extends Migration
             $table->dateTime('end_date');
             $table->integer('price');
             $table->integer('max_students');
+            $table->boolean('published')->default(0);
             $table->unsignedInteger('category_id')->nullable();
 
             $table->timestamps();

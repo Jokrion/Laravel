@@ -1,0 +1,18 @@
+{
+	"Login": "Se connecter",
+    "E-Mail Address": "Adresse Email",
+    "Password": "Mot de passe",
+    "Forgot Your Password?": "Mot de passe oublié ?",
+    "Remember Me": "Se rappeler de moi",
+    "Reset Password": "Changer son mot de passe",
+    "Confirm Password": "Confirmer le mot de passe",
+    "Send Password Reset Link": "Envoyer le lien de modification du mot de passe",
+    "Register": "S'enregistrer",
+    "Name": "Nom",
+    "Confirm Password": "Confirmer le mot de passe",
+    "Verify Your Email Address": "Vérifiez votre adresse email",
+    "A fresh verification link has been sent to your email address.": "Un nouveau lien de vérification a été envoyé à votre adresse email.",
+    "Before proceeding, please check your email for a verification link.": "Avant de continuer, merci de vérifier que vous n'ayer pas déjà un lien de vérification dans votre boîte mail.",
+    "If you did not receive the email": "Si vous n'avez pas reçu de mail",
+    "click here to request another": "cliquez ici pour en demander un nouveau"
+}

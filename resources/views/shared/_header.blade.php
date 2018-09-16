@@ -1,4 +1,4 @@
-<div class="header text-right">
+<div class="container text-right">
 	<h1>Formations et Stages</h1>
 </div>
 
