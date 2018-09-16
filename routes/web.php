@@ -11,10 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('front.index');
-});
+// Home page
+Route::get('/', 'FrontController@index');
+Route::post('/', 'FrontController@search')->name('search');
 
-Auth::routes();
+// Single post
+Route::get('post/{id}', 'FrontController@show')->where(['id'=>'[0-9]+']);
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Auth routes
+Route::resource('admin/book', 'BookController')->middleware('auth');
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
