@@ -42,9 +42,9 @@
 
 			<section class="col-xs-12 col-md-4">
 				<div class="container">
-					{!! Form::open(['route' => 'search', 'class' => 'form navbar-form navbar-right searchform', 'method' => 'POST']) !!}
-						{!! Form::text('search', null, ['required', 'class' => 'form-control']) !!}
-    					{!! Form::submit('Rechercher', ['class' => 'btn btn-default']) !!}
+					{!! Form::open(['route' => 'search', 'class' => 'form-inline my-2 my-lg-0', 'method' => 'POST']) !!}
+						{!! Form::text('search', null, ['required', 'class' => 'form-control mr-sm-2']) !!}
+    					{!! Form::submit('Rechercher', ['class' => 'btn btn-default my-2 my-sm-0']) !!}
 					{!! Form::close() !!}
 				</div>
 			</section>

@@ -15,6 +15,8 @@
         @include('layouts.partials._styles')
     </head>
     <body>
+        @yield('header')
+        
     	@yield('content')
 
     	<footer>
