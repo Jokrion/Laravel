@@ -23,7 +23,7 @@ class CreatePostsTable extends Migration
             $table->dateTime('end_date');
             $table->integer('price');
             $table->integer('max_students');
-            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('category_id')->nullable();
 
             $table->timestamps();
 

@@ -5,7 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ $title or 'Laravel Project' }}</title>
+        {{-- or was displaying 1 in front for code below --}}
+        <title>{{ isset($title) ? $title : 'Laravel Project' }}</title>
 
 		{{-- Fonts --}}
         @include('layouts.partials._fonts')
