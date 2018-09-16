@@ -6,7 +6,7 @@
 
 @section('content')
 
-	<section>
+	<section class="container">
 		@if($title == 'Formations')
 			<h2>Nos dernières formations</h2>
 		@else

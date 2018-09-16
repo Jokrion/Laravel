@@ -55,8 +55,11 @@ class FrontController extends Controller
     // Single post
     public function show(int $id){
         $post = Post::find($id);
+        $title = ($post->post_type == "formation") ? 'Formation' : 'Stage';
+        $post->start_date = Carbon::parse($post->start_date)->format('d/m/Y');
+        $post->end_date = Carbon::parse($post->end_date)->format('d/m/Y');
 
-        return view ('front.show', ['post' => $post]);
+        return view ('front.single', ['post' => $post, 'title' => $title]);
     }
 
     // Contact
