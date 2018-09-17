@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Filesystem\Filesystem;
 
 class PostsTableSeeder extends Seeder
 {
@@ -12,10 +13,13 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         // Suppression des images
-        Storage::disk('public')->delete(Storage::allFiles());
+        $fs = new Filesystem;
+        $fs->cleanDirectory('storage/app/public');
 
         factory(App\Post::class, 10)->create()->each( function($post){
-        	$post->category()->associate(rand(1, 5));
+            $cat = App\Category::find(rand(1, 5));
+        	$post->category()->associate($cat);
+            $post->save();
 
 	        // On utilise Futurama sur lorempiscum pour récupérer des images aléatoirement
 	        $link = str_random(12) . '.jpg';

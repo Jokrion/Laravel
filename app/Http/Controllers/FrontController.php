@@ -83,10 +83,4 @@ class FrontController extends Controller
         return view ('front.contact', ['sent' => true]);
     }
 
-    // Login
-    public function login()
-    {
-        return view ('auth.login');
-    }
-
 }

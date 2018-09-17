@@ -16,7 +16,11 @@
 						<div class="card">
 							<div class="row no-gutters">
 								<div class="col-auto">
-									<img src="{{ asset('storage/' . $post->picture->link) }}" alt="{{ $post->title }}" class="img-fluid">
+									@if($post->picture()->exists())
+										<img src="{{ asset('storage/' . $post->picture->link) }}" alt="{{ $post->title }}" class="img-fluid">
+									@else
+										<img src="{{ asset('img/default.png') }}" alt="Image indisponible" class="img-fluid">
+									@endif
 								</div>
 								<div class="col">
 									<div class="card-block px-2">

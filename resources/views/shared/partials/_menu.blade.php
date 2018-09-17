@@ -19,6 +19,16 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ url('contact') }}">Contact</a>
             </li>
+            @if(auth()->user())
+                @if(auth()->user()->isAdmin())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('admin') }}">Panneau d'administration</a>
+                    </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('logout') }}">Se déconnecter</a>
+                </li>
+            @endif
         </ul>
     </div>
 </nav>

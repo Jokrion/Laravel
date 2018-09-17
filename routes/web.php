@@ -34,8 +34,10 @@ Route::post('contact', 'FrontController@sendContactMail')
 Auth::routes();
 
 // Admin routes
-Route::group(['middleware' => ['auth', 'is_admin']], function() {
-	Route::resource('admin', 'AdminController');
-});
+Route::group(['middleware' => 'auth'], function() {
+	Route::get('logout', 'UserController@logout');
 
-// Route::get('/home', 'HomeController@index')->name('home');
+	Route::group(['middleware' => 'is_admin'], function() {
+		Route::resource('admin', 'AdminController');
+	});
+});

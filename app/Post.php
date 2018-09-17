@@ -42,7 +42,7 @@ class Post extends Model
      */
     public function isFormation()
     {        
-        return $this->type === self::FORMATION_TYPE;    
+        return $this->post_type === self::FORMATION_TYPE;    
     }
 
     /**
@@ -52,7 +52,7 @@ class Post extends Model
      */
     public function isStage()
     {        
-        return $this->type === self::STAGE_TYPE;    
+        return $this->post_type === self::STAGE_TYPE;    
     }
 
 }
