@@ -21,7 +21,7 @@
 			
 			<div class="form-group">
 				{!! Form::label('picture', 'Image du post') !!}
-				{!! Form::file('picture', old('picture'), ['class' => 'form-control']) !!}
+				{!! Form::file('picture', ['class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
 				{!! Form::label('post_type', 'Type') !!}
@@ -52,8 +52,8 @@
 				{!! Form::number('max_students', old('max_students'), ['required', 'class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
-				{!! Form::label('category', 'Catégorie') !!}
-				{!! Form::select('category', $categories, old('category'), ['required', 'placeholder' => 'Choix de catégorie...', 'class' => 'form-control']) !!}
+				{!! Form::label('category_id', 'Catégorie') !!}
+				{!! Form::select('category_id', $categories, old('category'), ['required', 'placeholder' => 'Choix de catégorie...', 'class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
 				{!! Form::label('published', 'Publier ?') !!}

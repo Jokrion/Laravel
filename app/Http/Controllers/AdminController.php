@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use Carbon\Carbon;
+use Storage;
 
 class AdminController extends Controller
 {
@@ -55,25 +56,17 @@ class AdminController extends Controller
             'end_date' => 'required|date',
             'price' => 'required|numeric|min:0',
             'max_students' => 'required|integer|min:0',
-            'category' => 'required',
+            'category_id' => 'required',
             'published' => 'nullable'
         ]);
 
         $post = new Post();
-        $post->post_type = $request->input('post_type');
-        $post->title = $request->input('title');
-        $post->description = $request->input('description');
-        $post->start_date = $request->input('start_date');
-        $post->end_date = $request->input('end_date');
-        $post->price = $request->input('price');
-        $post->max_students = $request->input('max_students');
-        $cat = Category::find($request->input('category'));
-        $post->category()->associate($cat);
-        $post->published = ($request->input('published') == 'on') ? true : false;
-        if($request->input('image') !== null){
-            $link = str_random(12) . '.jpg';
-            $file = $request->input('image');
-            Storage::disk('public')->put($link, $file);
+        $request->replace(['published' => ($request->input('published') == 'on') ? true : false]);
+        $post->create($request->except(['_token', 'picture']));
+        $image = $request->file('picture');
+        if($image !== null){
+            $ext = $request->imgage->extension();
+            $link = $request->image->storeAs('', str_random(10) . '.' . $ext, 'public');
             $post->picture()->create([
                 'title' => $post->title,
                 'link' => $link
@@ -92,7 +85,10 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        $title = ($post->isFormation()) ? 'Formation' : 'Stage';
+
+        return view ('admin.show', ['post' => $post, 'title' => $title]);
     }
 
     /**
@@ -103,7 +99,10 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        $categories = Category::pluck('title', 'id')->all();
+
+        return view ('admin.edit', ['post' => $post, 'categories' => $categories]);
     }
 
     /**
@@ -115,7 +114,44 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'picture' => 'image',
+            'post_type' => 'required',
+            'title' => 'bail|required|max:255',
+            'description' => 'required',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
+            'price' => 'required|numeric|min:0',
+            'max_students' => 'required|integer|min:0',
+            'category_id' => 'required',
+            'published' => 'nullable'
+        ]);
+
+        $post = Post::find($id);
+        $request->replace(['published' => ($request->input('published') == 'on') ? true : false]);    
+        $new_image = $request->file('picture');
+        if($new_image !== null){
+            $ext = $request->picture->extension();
+            $link = $request->picture->storeAs('', str_random(10) . '.' . $ext, 'public');
+            if($post->picture()->exists()){
+                $old_picture = $post->picture->link;
+                Storage::delete($old_picture);
+                $post->update($request->except(['_token', 'picture']));
+                $post->picture()->update([
+                    'title' => $post->title,
+                    'link' => $link
+                ]);
+            } else {
+                $post->update($request->except(['_token', 'picture']));
+                $post->picture()->create([
+                    'title' => $post->title,
+                    'link' => $link
+                ]);
+            }
+        }
+        $post->save();
+
+        return redirect('admin')->with('message', 'Le post a bien été modifié.');
     }
 
     /**

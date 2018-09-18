@@ -32,7 +32,7 @@
 					<tr>
 						<th scope="row">{{ $post->id }}</th>
 						<td>{{ ($post->isFormation()) ? 'Formation' : 'Stage' }}</td>
-						<td>{{ $post->title }}</td>
+						<td><a href="{{ route('admin.show', $post->id) }}">{{ $post->title }}</a></td>
 						<td>{{ $post->start_date }}</td>
 						<td>{{ $post->end_date }}</td>
 						<td>{{ $post->price }} €</td>
@@ -40,7 +40,7 @@
 						<td>{{ $post->category->title }}</td>
 						<td>{{ ($post->published) ? 'Oui' : 'Non' }}</td>
 						<td>
-							<a href="#"><span class="oi oi-wrench" title="Modifier" aria-hidden="true"></span></a>
+							<a href="{{ route('admin.edit', $post->id) }}"><span class="oi oi-wrench" title="Modifier" aria-hidden="true"></span></a>
 							<a href="#"><span class="oi oi-trash" title="Supprimer" aria-hidden="true"></span></a>
 							@if(!$post->published)
 								<a href="#"><span class="oi oi-plus" title="Publier" aria-hidden="true"></span></a>

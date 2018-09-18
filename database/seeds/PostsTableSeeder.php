@@ -27,8 +27,8 @@ class PostsTableSeeder extends Seeder
 	        Storage::disk('public')->put($link, $file);
 
 	        $post->picture()->create([
-	            'title'=> 'Default',
-	            'link'=> $link
+	            'title' => 'Default',
+	            'link' => $link
 	        ]);
         });
     }
