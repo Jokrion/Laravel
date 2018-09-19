@@ -39,11 +39,11 @@
 			</div>
 			<div class="form-group">
 				{!! Form::label('start_date', 'Date de début') !!}
-				{!! Form::date('start_date', \Carbon\Carbon::parse($post->start_date), ['required', 'class' => 'form-control']) !!}
+				{!! Form::date('start_date', $post->start_date, ['required', 'class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
 				{!! Form::label('end_date', 'Date de fin') !!}
-				{!! Form::date('end_date', \Carbon\Carbon::parse($post->end_date), ['required', 'class' => 'form-control']) !!}
+				{!! Form::date('end_date', $post->end_date, ['required', 'class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
 				{!! Form::label('price', 'Prix') !!}

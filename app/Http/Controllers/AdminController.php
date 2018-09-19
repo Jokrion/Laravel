@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -16,13 +15,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($sorted = 'id', $with = 'asc')
     {
-        $posts = Post::paginate(10);
-        foreach ($posts as $post) {
-            $post->start_date = Carbon::parse($post->start_date)->format('d/m/Y');
-            $post->end_date = Carbon::parse($post->end_date)->format('d/m/Y');
-        }
+        $posts = Post::orderBy($sorted, $with)->paginate(10);
 
         return view ('admin.index', ['posts' => $posts]);
     }
@@ -61,19 +56,20 @@ class AdminController extends Controller
         ]);
 
         $post = new Post();
-        $request->replace(['published' => ($request->input('published') == 'on') ? true : false]);
-        $post->create($request->except(['_token', 'picture']));
+        $request->merge(['published' => ($request->input('published') == 'on') ? true : false]);
+        $post->fill($request->except(['_token', 'picture']));
+        $post->save();
         $image = $request->file('picture');
         if($image !== null){
-            $ext = $request->imgage->extension();
-            $link = $request->image->storeAs('', str_random(10) . '.' . $ext, 'public');
+            $title = $request->picture->getClientOriginalName();
+            $ext = $request->picture->extension();
+            $link = $request->picture->storeAs('', str_random(10) . '.' . $ext, 'public');
             $post->picture()->create([
-                'title' => $post->title,
+                'title' => $title,
                 'link' => $link
             ]);
         }
-        $post->save();
-
+        
         return redirect('admin')->with('message', 'Le post a bien été créé.');
     }
 
@@ -128,21 +124,22 @@ class AdminController extends Controller
         ]);
 
         $post = Post::find($id);
-        $request->replace(['published' => ($request->input('published') == 'on') ? true : false]);    
+        $request->merge(['published' => ($request->input('published') == 'on') ? true : false]);    
         $new_image = $request->file('picture');
         if($new_image !== null){
+            $title = $request->picture->getClientOriginalName();
             $ext = $request->picture->extension();
             $link = $request->picture->storeAs('', str_random(10) . '.' . $ext, 'public');
             if($post->picture()->exists()){
                 $old_picture = $post->picture->link;
                 Storage::delete($old_picture);
                 $post->picture()->update([
-                    'title' => $post->title,
+                    'title' => $title,
                     'link' => $link
                 ]);
             } else {
                 $post->picture()->create([
-                    'title' => $post->title,
+                    'title' => $title,
                     'link' => $link
                 ]);
             }

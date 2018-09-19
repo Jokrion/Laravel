@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use App\Post;
 use App\Observers\PostObserver;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +18,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
-        Post::observe(PostObserver::class);
+        Carbon::setToStringFormat('d/m/Y'); // Default Carbon dates string format
+        Post::observe(PostObserver::class); // Delete post observer
     }
 
     /**

@@ -5,9 +5,9 @@
             @yield('header')
         @endcomponent
     @endslot
-{{-- Body --}}
+    {{-- Body --}}
     @yield('body')
-{{-- Subcopy --}}
+    {{-- Subcopy --}}
     @isset($subcopy)
         @slot('subcopy')
             @component('mail::subcopy')
@@ -15,7 +15,7 @@
             @endcomponent
         @endslot
     @endisset
-{{-- Footer --}}
+    {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
             @yield('footer')

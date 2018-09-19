@@ -7,16 +7,51 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+$(document).ready(function(){
+	function openModal(event, type, id)
+	{
+		event.preventDefault();
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+		var postid = $('#postid');
+		postid.html(id);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+		if(type == 'del') {
+			var modale = $('#deleteModal');
+		} else if(type == 'pub') {
+			var modale = $('#pubModal');
+		} else {
+			var modale = $('#unpubModal');
+		}
 
-const app = new Vue({
-    el: '#app'
+		modale.modal('show');
+	}
+
+	function removePost(token, url, redir)
+	{
+		var postid = $('#postid').html();
+		url = url.replace('#', postid);
+
+		$.ajax({
+		  	type: "DELETE",
+		  	url: url,
+		  	headers: {
+		    	'X-CSRF-Token': token,
+			}
+		});
+
+		window.location.reload(true);
+	}
+
+	function toggle(url, redir)
+	{
+		var postid = $('#postid').html();
+		url = url.replace('#', postid);
+		
+		$.ajax({
+		  	type: "GET",
+		  	url: url
+		});
+
+		window.location.reload(true);
+	}
 });

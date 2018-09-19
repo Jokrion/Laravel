@@ -12,7 +12,11 @@ class Picture extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'link', 'post_id',
+        'title', 'link',
+    ];
+
+    protected $guarded = [
+        'post_id',
     ];
 
     /**

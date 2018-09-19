@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -34,6 +35,12 @@ class Post extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+        'published' => 'boolean'
+    ];
 
     /**
      * This function returns true if the post type is FORMATION_TYPE
