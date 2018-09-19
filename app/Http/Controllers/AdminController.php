@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use Carbon\Carbon;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -136,19 +136,18 @@ class AdminController extends Controller
             if($post->picture()->exists()){
                 $old_picture = $post->picture->link;
                 Storage::delete($old_picture);
-                $post->update($request->except(['_token', 'picture']));
                 $post->picture()->update([
                     'title' => $post->title,
                     'link' => $link
                 ]);
             } else {
-                $post->update($request->except(['_token', 'picture']));
                 $post->picture()->create([
                     'title' => $post->title,
                     'link' => $link
                 ]);
             }
         }
+        $post->update($request->except(['_token', 'picture']));
         $post->save();
 
         return redirect('admin')->with('message', 'Le post a bien été modifié.');
@@ -162,6 +161,24 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect('admin')->with('message', 'Le post a bien été supprimé.');
+    }
+
+    /**
+     * Toggles post publication
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function togglePublish($id)
+    {
+        $post = Post::find($id);
+        $post->published = !$post->published;
+        $post->save();
+
+        return redirect('admin')->with('message', 'La publication de ce post a été modifiée.');
     }
 }

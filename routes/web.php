@@ -39,5 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::group(['middleware' => 'is_admin'], function() {
 		Route::resource('admin', 'AdminController');
+		Route::get('admin/{id}/toggle', 'AdminController@togglePublish')
+			->where(['id'=>'[0-9]+']);
 	});
 });
