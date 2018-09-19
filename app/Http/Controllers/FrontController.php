@@ -31,11 +31,7 @@ class FrontController extends Controller
         $posts = Post::orderBy('start_date', 'desc')
             ->where('published', 1)
             ->where('title', 'LIKE', '%' . $query . '%');
-        if($posts->count() > 5){
-            $results = $posts->paginate(2);
-        } else {
-            $results = $posts->take(2)->get();
-        }
+        $results = $posts->paginate(5);
 
         return view ('front.index', ['posts' => $results]);
     }
@@ -47,7 +43,28 @@ class FrontController extends Controller
             ->where('post_type', 'stage')
             ->paginate(5);
 
-        return view ('front.archive', ['posts' => $posts, 'title' => 'Stages']);
+        return view ('front.archive', ['posts' => $posts, 'title' => 'Stages', 'type' => 'stage']);
+    }
+
+    // Archive pages with search query (post)
+    public function searchArchive(Request $request)
+    {
+        $request->validate([
+            'search' => 'required',
+            'type' => 'required'
+        ]);
+
+        $query = $request->input('search');
+        $type = $request->input('type');
+        $posts = Post::orderBy('start_date', 'desc')
+            ->where('published', 1)
+            ->where('post_type', $type)
+            ->where('title', 'LIKE', '%' . $query . '%');
+        $results = $posts->paginate(5);
+
+        ($type == 'stage') ? $title = 'Stages' : $title = 'Formations';
+
+        return view ('front.archive', ['posts' => $results, 'title' => $title, 'type' => $type]);
     }
 
     // Archive formations
@@ -57,7 +74,7 @@ class FrontController extends Controller
             ->where('post_type', 'formation')
             ->paginate(5);
 
-        return view ('front.archive', ['posts' => $posts, 'title' => 'Formations']);
+        return view ('front.archive', ['posts' => $posts, 'title' => 'Formations', 'type' => 'formation']);
     }
 
     // Single post

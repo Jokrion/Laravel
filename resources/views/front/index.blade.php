@@ -14,7 +14,7 @@
 		@endif
 		<div class="row">
 
-			<section class="col-xs-12 col-md-8">
+			<section class="display col-xs-12 col-md-8">
 				<div class="container">
 					<h2>{{ __('Our last events') }}</h2>
 					@forelse($posts as $post)
@@ -29,7 +29,7 @@
 								</div>
 								<div class="col">
 									<div class="card-block px-2">
-										<h5 class="card-title">{{ $post->title }}</h5>
+										<h5 class="card-title">{{ ucfirst($post->post_type) }} - {{ $post->title }}</h5>
 										<h6 class="card-subtitle mb-2 text-muted">{{ $post->category->title }}</h6>
 										<p class="card-text">{{ $post->description }}</p>
 										<a href="{{ url('post', $post->id) }}" class="btn btn-primary">> {{ __('See details') }}</a>
@@ -50,7 +50,7 @@
 				</div>
 			</section>
 
-			<section class="col-xs-12 col-md-4">
+			<section class="search col-xs-12 col-md-4">
 				<div class="container">
 					{!! Form::open(['route' => 'search', 'class' => 'form-inline', 'method' => 'POST']) !!}
 						{!! Form::text('search', null, ['required', 'class' => 'form-control mr-sm-2']) !!}

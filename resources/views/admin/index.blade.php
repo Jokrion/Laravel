@@ -11,7 +11,22 @@
 				<p>{{ session('message') }}</p>
 			</div>
 		@endif
-		<a href="{{ route('admin.create') }}" class="btn btn-primary">Créer un post</a>
+
+		<div class="row">
+			<div class="col-lg-2 col-xs-12">
+				<a href="{{ route('admin.create') }}" class="btn btn-primary">Créer un post</a>
+			</div>
+			<div class="col-lg-4 col-xs-12">
+				{{ $posts->links() }}
+			</div>
+			<div class="col-lg-6 col-xs-12">
+				{!! Form::open(['route' => 'searchadmin', 'class' => 'form-inline float-right', 'method' => 'POST']) !!}
+					{!! Form::text('search', null, ['required', 'class' => 'form-control mr-sm-2']) !!}
+					{!! Form::submit(__('Search'), ['class' => 'btn btn-default']) !!}
+				{!! Form::close() !!}
+			</div>
+		</div>
+
 		<table class="table">
 		  	<thead>
 		    	<tr>
@@ -25,6 +40,7 @@
 		      		<th scope="col">Catégorie</th>
 		      		<th scope="col">Publié</th>
 		      		<th scope="col"></th>
+		      		@if($posts->count() > 1) <th scope="col"></th> @endif
 		    	</tr>
 		  	</thead>
 		  	<tbody>
@@ -48,6 +64,11 @@
 								<a href="#" onclick="openModal(event, 'unpub', {{ $post->id }});"><span class="oi oi-ban" title="Enlever publication" aria-hidden="true"></span></a>
 							@endif
 						</td>
+						@if($posts->count() > 1)
+							<td>
+								<input type="checkbox" onclick="check();" name="check_{{ $post->id }}">
+							</td>
+						@endif
 					</tr>
 				@empty
 					<tr>
@@ -65,17 +86,40 @@
 				@endif
 			</tbody>
 		</table>
-
-		{{ $posts->links() }}
+		
+		<div class="row">
+			<div class="col-lg-4">
+				{{ $posts->links() }}
+			</div>
+			@if($posts->count() > 1)
+				<div class="col-lg-8">
+					<div class="form-inline float-right">
+						<select id="grouped_actions" class="form-control" required>
+							<option disabled selected>Choix de l'action...</option>
+							<option value="soft" disabled>Déplacer à la corbeille</option>
+							<option value="del">Supprimer</option>
+						</select>
+						<button onclick="openModal(event, 'actions', {{ $post->id }});" class="btn btn-default">Valider</button>
+						<div onclick="checkAll();"><a style="cursor: pointer;" id="checkall">Tout cocher</a></div>
+					</div>
+				</div>
+			@endif
+		</div>
 	</div>
 
-	<span class="hide" id="postid"></span>
+	<span style="display: none;" id="postid"></span>
 
 	@include('admin.partials._modal', ['id' => 'deleteModal', 'text' => 'Êtes-vous sûr de vouloir supprimer ce post ?', 'method' => 'removePost', 'button_text' => 'Supprimer', 'args' => [csrf_token(), url('admin/#'), url('admin')]])
+
 	@include('admin.partials._modal', ['id' => 'pubModal', 'text' => 'Êtes-vous sûr de vouloir publier ce post ?', 'method' => 'toggle', 'button_text' => 'Oui', 'args' => [url('admin/#/toggle'), url('admin')]])
+
 	@include('admin.partials._modal', ['id' => 'unpubModal', 'text' => 'Êtes-vous sûr de vouloir enlever le statut publié de ce post ?', 'method' => 'toggle', 'button_text' => 'Oui', 'args' => [url('admin/#/toggle'), url('admin')]])
+
+	@include('admin.partials._modal', ['id' => 'actionsModal', 'text' => 'Êtes-vous sûr de vouloir supprimer définitivement ces posts ?', 'method' => 'groupedAction', 'button_text' => 'Supprimer', 'args' => [url('/')]])
+
 @stop
 
 @section('footer')
 	@include('shared._footer')
+	<script src="{{ asset('js/admin.js') }}"></script>
 @stop

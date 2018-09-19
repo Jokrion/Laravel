@@ -15,9 +15,22 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($sorted = 'id', $with = 'asc')
+    public function index()
     {
-        $posts = Post::orderBy($sorted, $with)->paginate(10);
+        $posts = Post::paginate(10);
+
+        return view ('admin.index', ['posts' => $posts]);
+    }
+
+    // Admin panel with query results (post)
+    public function search(Request $request)
+    {
+        $request->validate([
+            'search' => 'required'
+        ]);
+
+        $query = $request->input('search');
+        $posts = Post::where('title', 'LIKE', '%' . $query . '%')->paginate(10);
 
         return view ('admin.index', ['posts' => $posts]);
     }
@@ -132,7 +145,7 @@ class AdminController extends Controller
             $link = $request->picture->storeAs('', str_random(10) . '.' . $ext, 'public');
             if($post->picture()->exists()){
                 $old_picture = $post->picture->link;
-                Storage::delete($old_picture);
+                Storage::disk('public')->delete($old_picture);
                 $post->picture()->update([
                     'title' => $title,
                     'link' => $link
@@ -159,6 +172,9 @@ class AdminController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        if($post->picture()->exists()){
+            Storage::disk('public')->delete($post->picture->link);
+        }
         $post->delete();
 
         return redirect('admin')->with('message', 'Le post a bien été supprimé.');
@@ -177,5 +193,27 @@ class AdminController extends Controller
         $post->save();
 
         return redirect('admin')->with('message', 'La publication de ce post a été modifiée.');
+    }
+
+    /**
+     * Triggers action from ajax call (grouped actions)
+     *
+     * @param  int  $id
+     * @param string $method
+     */
+    public function adminAction($id, $method)
+    {
+        $post = Post::find($id);
+
+        if($method == 'del') {
+            if($post->picture()->exists()){
+                Storage::disk('public')->delete($post->picture->link);
+            }
+            $post->delete();
+        }
+
+        if($method == 'soft') {
+
+        }
     }
 }
