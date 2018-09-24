@@ -56,8 +56,8 @@
 				{!! Form::select('category_id', $categories, old('category'), ['required', 'placeholder' => 'Choix de catégorie...', 'class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
-				{!! Form::label('published', 'Publier ?') !!}
-				{!! Form::checkbox('published', null, old('published'), ['class' => 'form-control']) !!}
+				{!! Form::label('status', 'Publier ?') !!}
+				{!! Form::checkbox('status', null, (old('status') == 'published') ? true : false, ['class' => 'form-control']) !!}
 			</div>
 
 			{!! Form::submit('Valider', ['class' => 'btn btn-primary']) !!}

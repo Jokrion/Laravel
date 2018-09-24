@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Post;
 use App\Category;
 use Illuminate\Support\Facades\Storage;
@@ -53,23 +54,12 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $validated = $request->validate([
-            'picture' => 'image',
-            'post_type' => 'required',
-            'title' => 'bail|required|max:255',
-            'description' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'price' => 'required|numeric|min:0',
-            'max_students' => 'required|integer|min:0',
-            'category_id' => 'required',
-            'published' => 'nullable'
-        ]);
+        $validated = $request->validated();
 
         $post = new Post();
-        $request->merge(['published' => ($request->input('published') == 'on') ? true : false]);
+        $request->merge(['status' => ($request->input('status') == 'on') ? 'published' : 'draft']);
         $post->fill($request->except(['_token', 'picture']));
         $post->save();
         $image = $request->file('picture');
@@ -94,7 +84,7 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $title = ($post->isFormation()) ? 'Formation' : 'Stage';
 
         return view ('admin.show', ['post' => $post, 'title' => $title]);
@@ -108,7 +98,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $categories = Category::pluck('title', 'id')->all();
 
         return view ('admin.edit', ['post' => $post, 'categories' => $categories]);
@@ -121,23 +111,12 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        $validated = $request->validate([
-            'picture' => 'image',
-            'post_type' => 'required',
-            'title' => 'bail|required|max:255',
-            'description' => 'required',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date',
-            'price' => 'required|numeric|min:0',
-            'max_students' => 'required|integer|min:0',
-            'category_id' => 'required',
-            'published' => 'nullable'
-        ]);
+        $validated = $request->validated();
 
-        $post = Post::find($id);
-        $request->merge(['published' => ($request->input('published') == 'on') ? true : false]);    
+        $post = Post::findOrFail($id);
+        $request->merge(['status' => ($request->input('status') == 'on') ? 'published' : 'draft']);    
         $new_image = $request->file('picture');
         if($new_image !== null){
             $title = $request->picture->getClientOriginalName();
@@ -171,7 +150,7 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         if($post->picture()->exists()){
             Storage::disk('public')->delete($post->picture->link);
         }
@@ -188,8 +167,8 @@ class AdminController extends Controller
      */
     public function togglePublish($id)
     {
-        $post = Post::find($id);
-        $post->published = !$post->published;
+        $post = Post::findOrFail($id);
+        $post->status = ($post->status == 'draft') ? 'published' : 'draft';
         $post->save();
 
         return redirect('admin')->with('message', 'La publication de ce post a été modifiée.');
@@ -203,7 +182,7 @@ class AdminController extends Controller
      */
     public function adminAction($id, $method)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         if($method == 'del') {
             if($post->picture()->exists()){

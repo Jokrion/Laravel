@@ -58,8 +58,8 @@
 				{!! Form::select('category_id', $categories, (old('category') !== null) ? old('category') : $post->category->id, ['required', 'placeholder' => 'Choix de catégorie...', 'class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
-				{!! Form::label('published', 'Publier ?') !!}
-				{!! Form::checkbox('published', null, (old('published') !== null) ? old('published') : $post->published, ['class' => 'form-control']) !!}
+				{!! Form::label('status', 'Publier ?') !!}
+				{!! Form::checkbox('status', null, (old('status') !== null) ? ((old('status') == 'published') ? true : false) : (($post->status == 'published') ? true : false), ['class' => 'form-control']) !!}
 			</div>
 
 			{!! Form::submit('Modifier', ['class' => 'btn btn-primary']) !!}

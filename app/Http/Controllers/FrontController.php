@@ -13,7 +13,7 @@ class FrontController extends Controller
     // Home page without search query (get)
     public function index(){
         $posts = Post::orderBy('start_date', 'desc')
-            ->where('published', 1)
+            ->where('status', 'published')
             ->where('end_date', '>', Carbon::now())
             ->take(2)
             ->get();
@@ -29,7 +29,7 @@ class FrontController extends Controller
 
         $query = $request->input('search');
         $posts = Post::orderBy('start_date', 'desc')
-            ->where('published', 1)
+            ->where('status', 'published')
             ->where('title', 'LIKE', '%' . $query . '%');
         $results = $posts->paginate(5);
 
@@ -39,7 +39,7 @@ class FrontController extends Controller
     // Archive stages
     public function stages(){
         $posts = Post::orderBy('start_date', 'desc')
-            ->where('published', 1)
+            ->where('status', 'published')
             ->where('post_type', 'stage')
             ->paginate(5);
 
@@ -57,7 +57,7 @@ class FrontController extends Controller
         $query = $request->input('search');
         $type = $request->input('type');
         $posts = Post::orderBy('start_date', 'desc')
-            ->where('published', 1)
+            ->where('status', 'published')
             ->where('post_type', $type)
             ->where('title', 'LIKE', '%' . $query . '%');
         $results = $posts->paginate(5);
@@ -70,7 +70,7 @@ class FrontController extends Controller
     // Archive formations
     public function formations(){
         $posts = Post::orderBy('start_date', 'desc')
-            ->where('published', 1)
+            ->where('status', 'published')
             ->where('post_type', 'formation')
             ->paginate(5);
 
@@ -79,7 +79,7 @@ class FrontController extends Controller
 
     // Single post
     public function show(int $id){
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         if(!$post->published) return redirect('')->with('message', 'Ce post n\'est pas disponible.');
         $title = ($post->isFormation()) ? 'Formation' : 'Stage';
 

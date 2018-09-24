@@ -1,19 +1,34 @@
 
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// @import '~bootstrap/scss/bootstrap';
 
 html, body {
     height: 100%;
     
     .wrapper {
 	    min-height: 100%;
-	    margin-bottom: -56px;
-	    padding-bottom: 56px;
+	}
+
+	.header{
+		margin-bottom: 4em;
+	}
+
+	footer{
+		margin-top: 4em;
+	}
+
+	.display{
+		h2{
+			margin-bottom: 2em;
+		}
+		.card{
+			margin-bottom: 2em;
+		}
 	}
 }

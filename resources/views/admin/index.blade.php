@@ -54,13 +54,13 @@
 						{{-- <td>{{ $post->price }} €</td>
 						<td>{{ $post->max_students }}</td> --}}
 						<td>{{ $post->category->title }}</td>
-						<td>{{ ($post->published) ? 'Oui' : 'Non' }}</td>
+						<td>{{ ($post->status == 'published') ? 'Oui' : 'Non' }}</td>
 						<td>
 							<a href="{{ route('admin.edit', $post->id) }}"><span class="oi oi-wrench" title="Modifier" aria-hidden="true"></span></a>
 							<a href="#" onclick="openModal(event, 'del', {{ $post->id }});"><span class="oi oi-trash" title="Supprimer" aria-hidden="true"></span></a>
-							@if(!$post->published)
+							@if($post->status == 'draft')
 								<a href="#" onclick="openModal(event, 'pub', {{ $post->id }});"><span class="oi oi-plus" title="Publier" aria-hidden="true"></span></a>
-							@else
+							@elseif($post->status == 'published')
 								<a href="#" onclick="openModal(event, 'unpub', {{ $post->id }});"><span class="oi oi-ban" title="Enlever publication" aria-hidden="true"></span></a>
 							@endif
 						</td>
@@ -94,13 +94,13 @@
 			@if($posts->count() > 1)
 				<div class="col-lg-8">
 					<div class="form-inline float-right">
-						<select id="grouped_actions" class="form-control" required>
+						<select id="grouped_actions" class="form-control mr-sm-2" required>
 							<option disabled selected>Choix de l'action...</option>
 							<option value="soft" disabled>Déplacer à la corbeille</option>
 							<option value="del">Supprimer</option>
 						</select>
-						<button onclick="openModal(event, 'actions', {{ $post->id }});" class="btn btn-default">Valider</button>
-						<div onclick="checkAll();"><a style="cursor: pointer;" id="checkall">Tout cocher</a></div>
+						<button onclick="openModal(event, 'actions', {{ $post->id }});" class="btn btn-default mr-sm-2">Valider</button>
+						<div onclick="checkAll();"><button class="btn btn-primary" id="checkall">Tout cocher</button></div>
 					</div>
 				</div>
 			@endif
