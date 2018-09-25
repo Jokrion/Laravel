@@ -8,6 +8,7 @@
 
 	<div class="container">
 		@if(!isset($sent))
+			<h2>Formulaire de contact</h2>
 			{!! Form::open(['route' => 'contact', 'method' => 'POST']) !!}
 				<div class="form-group">
 					@if ($errors->any())
@@ -17,6 +18,9 @@
 					                <li>{{ $error }}</li>
 					            @endforeach
 					        </ul>
+					        <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+							    <span aria-hidden="true">&times;</span>
+							</button>
 					    </div>
 					@endif
 				</div>

@@ -23,15 +23,25 @@ class AdminController extends Controller
         return view ('admin.index', ['posts' => $posts]);
     }
 
-    // Admin panel with query results (post)
-    public function search(Request $request)
+    // Admin panel with query results (post) - Search bar or sort
+    public function searchOrSort(Request $request)
     {
-        $request->validate([
-            'search' => 'required'
-        ]);
+        $type = $request->input('type');
+        if($type == null) $type = 'search';
+        if($type == 'search'){
+            $request->validate([
+                'search' => 'required'
+            ]);
 
-        $query = $request->input('search');
-        $posts = Post::where('title', 'LIKE', '%' . $query . '%')->paginate(10);
+            $query = $request->input('search');
+            $posts = Post::where('title', 'LIKE', '%' . $query . '%')->paginate(10);
+        } else {
+            $field = $request->input('field');
+            if($field == null) $field = 'title';
+            $direction = $request->input('direction');
+            if($direction == null) $direction = 'asc';
+            $posts = Post::orderBy($field, $direction)->paginate(10);
+        }
 
         return view ('admin.index', ['posts' => $posts]);
     }

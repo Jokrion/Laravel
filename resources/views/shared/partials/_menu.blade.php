@@ -7,21 +7,21 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <li class="nav-item" id="home">
                 <a class="nav-link" href="{{ url('/') }}">Accueil</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="int">
                 <a class="nav-link" href="{{ url('stages') }}">Stage</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="train">
                 <a class="nav-link" href="{{ url('formations') }}">Formation</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="contact">
                 <a class="nav-link" href="{{ url('contact') }}">Contact</a>
             </li>
             @if(auth()->user())
                 @if(auth()->user()->isAdmin())
-                    <li class="nav-item">
+                    <li class="nav-item" id="admin">
                         <a class="nav-link" href="{{ url('admin') }}">Panneau d'administration</a>
                     </li>
                 @endif

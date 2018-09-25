@@ -42,9 +42,10 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('logout', 'UserController@logout');
 
 	Route::group(['middleware' => 'is_admin'], function() {
-		Route::resource('admin', 'AdminController');
-		Route::post('admin/create', 'AdminController@store')->name('admin.store');
-		Route::post('admin', 'AdminController@search')
+		Route::resource('admin', 'AdminController', ['except' => ['store']]);
+		Route::post('admin/create', 'AdminController@store')
+			->name('admin.store');
+		Route::post('admin', 'AdminController@searchOrSort')
 			->name('searchadmin');
 		Route::get('admin/{id}/toggle', 'AdminController@togglePublish')
 			->where(['id' => '[0-9]+']);

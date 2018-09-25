@@ -8,27 +8,117 @@
 // Bootstrap
 // @import '~bootstrap/scss/bootstrap';
 
+/* Media Queries */
+@media only screen and (max-width: 767px) {
+	.card{
+    	img, .col-md-4{
+    		width: 100% !important;
+    		height: auto !important;
+    	}
+    }
+}
+
 html, body {
     height: 100%;
     
     .wrapper {
-	    min-height: 100%;
-	}
 
-	.header{
-		margin-bottom: 4em;
+	    min-height: 100%;
+
+	    h2{
+	    	margin-bottom: 2em;
+	    }
+
+	    .header{
+			margin-bottom: 4em;
+		}
+
+		.display{
+
+			.card{
+				margin-bottom: 2em;
+
+				img{
+					height: 100%;
+					width: auto;
+				}
+
+				h6{
+					margin-bottom: 2em;
+				}
+
+				.col-md-8{
+					padding: 1em;
+
+					.card-title{
+						color: black;
+					}
+				}
+			}
+
+		}
+
+		.single{
+			.row{
+				div{
+					padding: 1em;
+					strong{
+						color: black;
+					}
+				}
+			}
+		}
+
+		.admin{
+			table{
+				margin: 3em 0;
+
+				.flex{
+					display: flex;
+					align-items: center;
+
+					.sort{
+						display: flex;
+						flex-direction: column;
+						margin-left: 10px;
+
+						.icon{
+							border: none;
+							background-color: white;
+							color: black;
+
+							span{
+								width: 100%;
+								height: auto;
+								color: black;
+							}
+						}
+					}
+
+					a{
+						padding: 0 5px;
+					}
+					
+				}
+
+			}
+		}
+
+		.form-admin{
+			.check{
+				display: flex;
+
+				input{
+					width: auto;
+					margin: auto 0 auto 1em;
+				}
+			}
+		}
+		
 	}
 
 	footer{
 		margin-top: 4em;
 	}
-
-	.display{
-		h2{
-			margin-bottom: 2em;
-		}
-		.card{
-			margin-bottom: 2em;
-		}
-	}
+	
 }

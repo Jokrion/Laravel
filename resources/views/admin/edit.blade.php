@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-	<div class="container">
+	<div class="container form-admin">
 		<h2>Edition de Post</h2>
 		{!! Form::open(['route' => ['admin.update', $post->id], 'files' => true, 'method' => 'put']) !!}
 			@if ($errors->any())
@@ -15,6 +15,9 @@
 			                <li>{{ $error }}</li>
 			            @endforeach
 			        </ul>
+			        <button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+					    <span aria-hidden="true">&times;</span>
+					</button>
 			    </div>
 			@endif
 			
@@ -57,7 +60,7 @@
 				{!! Form::label('category_id', 'Catégorie') !!}
 				{!! Form::select('category_id', $categories, (old('category') !== null) ? old('category') : $post->category->id, ['required', 'placeholder' => 'Choix de catégorie...', 'class' => 'form-control']) !!}
 			</div>
-			<div class="form-group">
+			<div class="form-group check">
 				{!! Form::label('status', 'Publier ?') !!}
 				{!! Form::checkbox('status', null, (old('status') !== null) ? ((old('status') == 'published') ? true : false) : (($post->status == 'published') ? true : false), ['class' => 'form-control']) !!}
 			</div>

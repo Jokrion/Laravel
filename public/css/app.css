@@ -1,3 +1,13 @@
+/* Media Queries */
+
+@media only screen and (max-width: 767px) {
+  .card img,
+  .card .col-md-4 {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
 html,
 body {
   height: 100%;
@@ -8,23 +18,113 @@ body .wrapper {
   min-height: 100%;
 }
 
-html .header,
-body .header {
+html .wrapper h2,
+body .wrapper h2 {
+  margin-bottom: 2em;
+}
+
+html .wrapper .header,
+body .wrapper .header {
   margin-bottom: 4em;
+}
+
+html .wrapper .display .card,
+body .wrapper .display .card {
+  margin-bottom: 2em;
+}
+
+html .wrapper .display .card img,
+body .wrapper .display .card img {
+  height: 100%;
+  width: auto;
+}
+
+html .wrapper .display .card h6,
+body .wrapper .display .card h6 {
+  margin-bottom: 2em;
+}
+
+html .wrapper .display .card .col-md-8,
+body .wrapper .display .card .col-md-8 {
+  padding: 1em;
+}
+
+html .wrapper .display .card .col-md-8 .card-title,
+body .wrapper .display .card .col-md-8 .card-title {
+  color: black;
+}
+
+html .wrapper .single .row div,
+body .wrapper .single .row div {
+  padding: 1em;
+}
+
+html .wrapper .single .row div strong,
+body .wrapper .single .row div strong {
+  color: black;
+}
+
+html .wrapper .admin table,
+body .wrapper .admin table {
+  margin: 3em 0;
+}
+
+html .wrapper .admin table .flex,
+body .wrapper .admin table .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+html .wrapper .admin table .flex .sort,
+body .wrapper .admin table .flex .sort {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 10px;
+}
+
+html .wrapper .admin table .flex .sort .icon,
+body .wrapper .admin table .flex .sort .icon {
+  border: none;
+  background-color: white;
+  color: black;
+}
+
+html .wrapper .admin table .flex .sort .icon span,
+body .wrapper .admin table .flex .sort .icon span {
+  width: 100%;
+  height: auto;
+  color: black;
+}
+
+html .wrapper .admin table .flex a,
+body .wrapper .admin table .flex a {
+  padding: 0 5px;
+}
+
+html .wrapper .form-admin .check,
+body .wrapper .form-admin .check {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+html .wrapper .form-admin .check input,
+body .wrapper .form-admin .check input {
+  width: auto;
+  margin: auto 0 auto 1em;
 }
 
 html footer,
 body footer {
   margin-top: 4em;
-}
-
-html .display h2,
-body .display h2 {
-  margin-bottom: 2em;
-}
-
-html .display .card,
-body .display .card {
-  margin-bottom: 2em;
 }
 

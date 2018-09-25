@@ -80,7 +80,7 @@ class FrontController extends Controller
     // Single post
     public function show(int $id){
         $post = Post::findOrFail($id);
-        if(!$post->published) return redirect('')->with('message', 'Ce post n\'est pas disponible.');
+        if($post->status != 'published') return abort(404);
         $title = ($post->isFormation()) ? 'Formation' : 'Stage';
 
         return view ('front.single', ['post' => $post, 'title' => $title]);
