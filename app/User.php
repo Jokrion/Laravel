@@ -40,4 +40,9 @@ class User extends Authenticatable
     public function isAdmin()    {        
         return $this->type === self::ADMIN_TYPE;    
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany('App\Post');
+    }
 }

@@ -19,16 +19,31 @@
             <li class="nav-item" id="contact">
                 <a class="nav-link" href="{{ url('contact') }}">Contact</a>
             </li>
-            @if(auth()->user())
-                @if(auth()->user()->isAdmin())
-                    <li class="nav-item" id="admin">
-                        <a class="nav-link" href="{{ url('admin') }}">Panneau d'administration</a>
+        </ul>
+        @if(!isset($footer))
+            <ul class="navbar-nav navbar-right">
+                @if(auth()->user())
+                    @if(auth()->user()->isAdmin())
+                        <li class="nav-item" id="admin">
+                            <a class="nav-link" href="{{ url('admin') }}">Panneau d'administration</a>
+                        </li>
+                    @else
+                        <li class="nav-item" id="admin">
+                            <a class="nav-link" href="{{ url('profile') }}">Mon compte</a>
+                        </li>
+                    @endif
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('logout') }}">Se déconnecter</a>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('login') }}">Se connecter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('register') }}">S'enregistrer</a>
                     </li>
                 @endif
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('logout') }}">Se déconnecter</a>
-                </li>
-            @endif
-        </ul>
+            </ul>
+        @endif
     </div>
 </nav>

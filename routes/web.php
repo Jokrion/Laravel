@@ -40,6 +40,7 @@ Auth::routes();
 // Admin routes
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('logout', 'UserController@logout');
+	Route::get('profile', 'UserController@showProfile');
 
 	Route::group(['middleware' => 'is_admin'], function() {
 		Route::resource('admin', 'AdminController', ['except' => ['store']]);

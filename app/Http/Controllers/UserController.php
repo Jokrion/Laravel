@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Post;
 
 class UserController extends Controller
 {
@@ -18,5 +19,11 @@ class UserController extends Controller
     {
     	Auth::logout();
   		return redirect('/');
+    }
+
+    public function showProfile()
+    {
+
+        return view ('auth.profile');
     }
 }

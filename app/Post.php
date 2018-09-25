@@ -36,6 +36,11 @@ class Post extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',

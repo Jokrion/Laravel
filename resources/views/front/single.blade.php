@@ -26,6 +26,8 @@
 				<p><strong>Date de fin :</strong> {{ $post->end_date }}</p>
 				<p><strong>Nombre maximum d'élèves :</strong> {{ $post->max_students }}</p>
 				<p><strong>Prix :</strong> {{ $post->price }}€</p>
+				<br>
+				@if(auth()->user()) <a href="{{ url('/') }}" class="btn btn-primary">S'inscrire</a> @endif
 			</div>
 			<div class="col-12">
 				<a href="{{ url()->previous() }}" class="btn btn-primary">Retour</a>
