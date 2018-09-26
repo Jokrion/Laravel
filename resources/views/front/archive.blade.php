@@ -14,7 +14,7 @@
 					@if($title == 'Formations')
 						<h2>Nos dernières Formations</h2>
 					@else
-						<h2>Nos derniers stages</h2>
+						<h2>Nos derniers Stages</h2>
 					@endif
 					@forelse($posts as $post)
 						<div class="card">
@@ -30,7 +30,7 @@
 									<div class="card-block px-2">
 										<h5 class="card-title">{{ $post->title }}</h5>
 										<h6 class="card-subtitle text-muted">{{ $post->category->title }}</h6>
-										<p class="card-text">{{ $post->description }}</p>
+										<p class="card-text">{{ str_limit($post->description, $limit = 150, $end = '...') }}</p>
 										<a href="{{ url('post', $post->id) }}" class="btn btn-primary">> {{ __('See details') }}</a>
 									</div>
 								</div>

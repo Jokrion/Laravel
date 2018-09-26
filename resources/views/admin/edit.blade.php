@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container form-admin">
-		<h2>Edition de Post</h2>
+		<h2>Edition d'événement'</h2>
 		{!! Form::open(['route' => ['admin.update', $post->id], 'files' => true, 'method' => 'put']) !!}
 			@if ($errors->any())
 			    <div class="alert alert-danger">
@@ -21,13 +21,6 @@
 			    </div>
 			@endif
 			
-			<div class="form-group">
-				<img src="{{ asset('storage/' . $post->picture->link) }}" alt="{{ $post->title }}" class="img-fluid">
-			</div>
-			<div class="form-group">
-				{!! Form::label('picture', 'Image du post') !!}
-				{!! Form::file('picture', ['class' => 'form-control']) !!}
-			</div>
 			<div class="form-group">
 				{!! Form::label('post_type', 'Type') !!}
 				{!! Form::select('post_type', ['formation' => 'Formation', 'stage' => 'Stage'], (old('post_type') !== null) ? old('post_type') : $post->post_type, ['required', 'placeholder' => 'Choix du type...', 'class' => 'form-control']) !!}
@@ -55,6 +48,13 @@
 			<div class="form-group">
 				{!! Form::label('max_students', 'Nombre d\'étudients maximum') !!}
 				{!! Form::number('max_students', (old('max_students') !== null) ? old('max_students') : $post->max_students, ['required', 'class' => 'form-control']) !!}
+			</div>
+			<div class="form-group">
+				<img src="{{ asset('storage/' . $post->picture->link) }}" alt="{{ $post->title }}" class="img-fluid">
+			</div>
+			<div class="form-group">
+				{!! Form::label('picture', 'Image du post') !!}
+				{!! Form::file('picture', ['class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
 				{!! Form::label('category_id', 'Catégorie') !!}

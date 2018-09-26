@@ -7,6 +7,15 @@
 @section('content')
 
 	<section class="container single">
+		@if(session('message'))
+			<div class="alert alert-success">
+				{{ session('message') }}
+				<button type="button" class="close" data-dismiss="alert" aria-label="{{ __('Close') }}">
+				    <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		@endif
+
 		<h2>{{ ucfirst($post->post_type) }} - {{ $post->title }}</h2>
 		<hr>
 		<br>
@@ -27,7 +36,13 @@
 				<p><strong>Nombre maximum d'élèves :</strong> {{ $post->max_students }}</p>
 				<p><strong>Prix :</strong> {{ $post->price }}€</p>
 				<br>
-				@if(auth()->user()) <a href="{{ url('/') }}" class="btn btn-primary">S'inscrire</a> @endif
+				@if(auth()->user())
+					@if(auth()->user()->posts()->where('posts.id', $post->id)->exists())
+						<a href="{{ url('unparticipate', $post->id) }}" class="btn btn-primary">Se désinscrire</a>
+					@else
+						<a href="{{ url('participate', $post->id) }}" class="btn btn-primary">S'inscrire</a>
+					@endif
+				@endif
 			</div>
 			<div class="col-12">
 				<a href="{{ url()->previous() }}" class="btn btn-primary">Retour</a>

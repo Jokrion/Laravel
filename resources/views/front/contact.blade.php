@@ -32,6 +32,9 @@
 					{!! Form::label('message', 'Votre message :') !!}
 					{!! Form::textarea('message', old('message'), ['required', 'class' => 'form-control']) !!}
 				</div>
+				<div class="form-group">
+					<div class="g-recaptcha" data-sitekey="6LfTEnIUAAAAAB97lGHZfeWvVoCNuKP31xvoDSUT"></div>
+				</div>
 				{!! Form::submit('Envoyer', ['class' => 'btn btn-primary']) !!}
 			{!! Form::close() !!}
 		@else

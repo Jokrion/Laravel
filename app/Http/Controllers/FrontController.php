@@ -29,8 +29,11 @@ class FrontController extends Controller
 
         $query = $request->input('search');
         $posts = Post::orderBy('start_date', 'desc')
-            ->where('status', 'published')
-            ->where('title', 'LIKE', '%' . $query . '%');
+            ->where('title', 'LIKE', '%' . $query . '%')
+            ->orWhereHas('category', function ($q) use ($query) {
+                $q->where('title', 'LIKE', '%' . $query . '%');
+            })
+            ->where('status', 'published');
         $results = $posts->paginate(5);
 
         return view ('front.index', ['posts' => $results]);
@@ -57,9 +60,12 @@ class FrontController extends Controller
         $query = $request->input('search');
         $type = $request->input('type');
         $posts = Post::orderBy('start_date', 'desc')
+            ->where('title', 'LIKE', '%' . $query . '%')
+            ->orWhereHas('category', function ($q) use ($query) {
+                $q->where('title', 'LIKE', '%' . $query . '%');
+            })
             ->where('status', 'published')
-            ->where('post_type', $type)
-            ->where('title', 'LIKE', '%' . $query . '%');
+            ->where('post_type', $type);
         $results = $posts->paginate(5);
 
         ($type == 'stage') ? $title = 'Stages' : $title = 'Formations';

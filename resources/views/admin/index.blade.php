@@ -17,7 +17,7 @@
 
 		<div class="row">
 			<div class="col-md-2 col-12">
-				<a href="{{ route('admin.create') }}" class="btn btn-primary">Créer un post</a>
+				<a href="{{ route('admin.create') }}" class="btn btn-primary">Créer un événement</a>
 			</div>
 			<div class="col-md-4 col-12">
 				{{ $posts->links() }}
@@ -244,14 +244,14 @@
 						<tr>
 							<th scope="row">#</th>
 							<td></td>
-							<td>Désolé, il n'y a pas de stage disponible.</td>
+							<td>Désolé, il n'y a pas d'événement disponible.</td>
 						</tr>
 					@endforelse
 					@if(!empty($posts))
 						<tr>
 							<th scope="row">#</th>
 							<td></td>
-							<td>Total : {{ $posts->total() }} posts</td>
+							<td>Total : {{ $posts->total() }} événements</td>
 						</tr>
 					@endif
 				</tbody>
@@ -280,13 +280,13 @@
 
 	<span style="display: none;" id="postid"></span>
 
-	@include('admin.partials._modal', ['id' => 'deleteModal', 'text' => 'Êtes-vous sûr de vouloir supprimer ce post ?', 'method' => 'removePost', 'button_text' => 'Supprimer', 'args' => [csrf_token(), url('admin/#'), url('admin')]])
+	@include('admin.partials._modal', ['id' => 'deleteModal', 'text' => 'Êtes-vous sûr de vouloir supprimer cet événement ?', 'method' => 'removePost', 'button_text' => 'Supprimer', 'args' => [csrf_token(), url('admin/#'), url('admin')]])
 
-	@include('admin.partials._modal', ['id' => 'pubModal', 'text' => 'Êtes-vous sûr de vouloir publier ce post ?', 'method' => 'toggle', 'button_text' => 'Oui', 'args' => [url('admin/#/toggle'), url('admin')]])
+	@include('admin.partials._modal', ['id' => 'pubModal', 'text' => 'Êtes-vous sûr de vouloir publier cet événement ?', 'method' => 'toggle', 'button_text' => 'Oui', 'args' => [url('admin/#/toggle'), url('admin')]])
 
-	@include('admin.partials._modal', ['id' => 'unpubModal', 'text' => 'Êtes-vous sûr de vouloir enlever le statut publié de ce post ?', 'method' => 'toggle', 'button_text' => 'Oui', 'args' => [url('admin/#/toggle'), url('admin')]])
+	@include('admin.partials._modal', ['id' => 'unpubModal', 'text' => 'Êtes-vous sûr de vouloir enlever le statut publié de cet événement ?', 'method' => 'toggle', 'button_text' => 'Oui', 'args' => [url('admin/#/toggle'), url('admin')]])
 
-	@include('admin.partials._modal', ['id' => 'actionsModal', 'text' => 'Êtes-vous sûr de vouloir supprimer définitivement ces posts ?', 'method' => 'groupedAction', 'button_text' => 'Supprimer', 'args' => [url('/')]])
+	@include('admin.partials._modal', ['id' => 'actionsModal', 'text' => 'Êtes-vous sûr de vouloir supprimer définitivement ces événements ?', 'method' => 'groupedAction', 'button_text' => 'Supprimer', 'args' => [url('/')]])
 
 @stop
 

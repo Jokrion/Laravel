@@ -41,6 +41,10 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('logout', 'UserController@logout');
 	Route::get('profile', 'UserController@showProfile');
+	Route::get('participate/{id}', 'UserController@participate')
+		->where(['id' => '[0-9]+']);
+	Route::get('unparticipate/{id}', 'UserController@unparticipate')
+		->where(['id' => '[0-9]+']);
 
 	Route::group(['middleware' => 'is_admin'], function() {
 		Route::resource('admin', 'AdminController', ['except' => ['store']]);

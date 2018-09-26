@@ -83,7 +83,7 @@ class AdminController extends Controller
             ]);
         }
         
-        return redirect('admin')->with('message', 'Le post a bien été créé.');
+        return redirect('admin')->with('message', 'L\'événement a bien été créé.');
     }
 
     /**
@@ -149,7 +149,7 @@ class AdminController extends Controller
         $post->update($request->except(['_token', 'picture']));
         $post->save();
 
-        return redirect('admin')->with('message', 'Le post a bien été modifié.');
+        return redirect('admin')->with('message', 'L\'événement a bien été modifié.');
     }
 
     /**
@@ -166,7 +166,7 @@ class AdminController extends Controller
         }
         $post->delete();
 
-        return redirect('admin')->with('message', 'Le post a bien été supprimé.');
+        return redirect('admin')->with('message', 'L\'événement a bien été supprimé.');
     }
 
     /**
@@ -181,7 +181,7 @@ class AdminController extends Controller
         $post->status = ($post->status == 'draft') ? 'published' : 'draft';
         $post->save();
 
-        return redirect('admin')->with('message', 'La publication de ce post a été modifiée.');
+        return redirect('admin')->with('message', 'La publication de cet événement a été modifiée.');
     }
 
     /**

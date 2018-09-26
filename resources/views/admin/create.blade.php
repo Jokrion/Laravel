@@ -6,7 +6,7 @@
 
 @section('content')
 	<div class="container form-admin">
-		<h2>Création de Post</h2>
+		<h2>Création d'événement</h2>
 		{!! Form::open(['route' => 'admin.store', 'files' => true, 'method' => 'POST']) !!}
 	
 			@if ($errors->any())
@@ -22,10 +22,6 @@
 			    </div>
 			@endif
 			
-			<div class="form-group">
-				{!! Form::label('picture', 'Image du post') !!}
-				{!! Form::file('picture', ['class' => 'form-control']) !!}
-			</div>
 			<div class="form-group">
 				{!! Form::label('post_type', 'Type') !!}
 				{!! Form::select('post_type', ['formation' => 'Formation', 'stage' => 'Stage'], old('post_type'), ['required', 'placeholder' => 'Choix du type...', 'class' => 'form-control']) !!}
@@ -53,6 +49,10 @@
 			<div class="form-group">
 				{!! Form::label('max_students', 'Nombre d\'étudients maximum') !!}
 				{!! Form::number('max_students', old('max_students'), ['required', 'class' => 'form-control']) !!}
+			</div>
+			<div class="form-group">
+				{!! Form::label('picture', 'Image du post') !!}
+				{!! Form::file('picture', ['class' => 'form-control']) !!}
 			</div>
 			<div class="form-group">
 				{!! Form::label('category_id', 'Catégorie') !!}

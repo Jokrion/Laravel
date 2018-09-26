@@ -11,6 +11,15 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Category::class, 5)->create();
+        // factory(App\Category::class, 5)->create();
+    	DB::table('categories')->insert([
+            ['title' => 'PHP'],
+            ['title' => 'CSS'],
+            ['title' => 'HTML'],
+            ['title' => 'Angular'],
+            ['title' => 'JS'],
+            ['title' => 'VueJS'],
+            ['title' => 'NodeJS'],
+        ]);
     }
 }

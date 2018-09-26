@@ -123,6 +123,21 @@ body .wrapper .form-admin .check input {
   margin: auto 0 auto 1em;
 }
 
+html .wrapper .oi-plus,
+body .wrapper .oi-plus {
+  color: green;
+}
+
+html .wrapper .oi-ban,
+body .wrapper .oi-ban {
+  color: orange;
+}
+
+html .wrapper .oi-trash,
+body .wrapper .oi-trash {
+  color: red;
+}
+
 html footer,
 body footer {
   margin-top: 4em;
